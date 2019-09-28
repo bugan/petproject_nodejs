@@ -1,12 +1,5 @@
-const express = require('express');
-const app = express();
 
+const customApp = require('./config/CustomExpress');
+customApp.listen(3000);
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
-
-app.listen(3000, () => {
-  // eslint-disable-next-line no-console
-  console.log('Example app listening on port 3000!');
-});
+require('./controllers/UserController')(customApp);
