@@ -1,5 +1,15 @@
-const mongoose = require('mongoose');
+const { MongoClient } = require('mongodb');
 
-mongoose.connect('mongodb://localhost:27017/ead', { useNewUrlParser: true });
+const dbName = 'ead';
+const url = 'mongodb://localhost:27017';
 
-module.exports = mongoose;
+const mongoClientDB = (async () => {
+  const connection = await MongoClient.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
+  const db = await connection.db(dbName);
+  return [db, connection];
+})();
+
+module.exports = mongoClientDB;
